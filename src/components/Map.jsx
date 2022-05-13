@@ -1,8 +1,6 @@
 import React from 'react'
 import { Map as Mapbox } from 'react-map-gl'
 import DeckGL from '@deck.gl/react'
-import { GeoJsonLayer } from '@deck.gl/layers'
-import { cityData } from './DataConditioning'
 import { scaleThreshold } from 'd3-scale'
 
 const mapBoxApiKey = import.meta.env.VITE_MAPBOX_API_KEY
@@ -62,29 +60,10 @@ function getTooltip({ object }) {
     }
   )
 }
-export default function Map({ data = cityData, mapStyle = MAP_STYLE }) {
-  const layers = [
-    new GeoJsonLayer({
-      id: 'geojson',
-      data,
-      opacity: 0.8,
-      stroked: false,
-      filled: true,
-      extruded: true,
-      wireframe: true,
-      getFillColor: (city) => colorScale(city.properties.houseAppreciation2yr),
-      getLineColor: (city) => colorScale(city.properties.houseAppreciation2yr),
-      getElevation: 0
-      //Code for elevation based on Zillow data
-      // (city) => {
-      //   if (city.properties.currentTypicalHousePrice === '$NaN') return 0
-      //   return parseFloat(city.properties.currentTypicalHousePrice.replace(/[^0-9.-]+/g, '')) / 20
-      // }
-      ,
-      pickable: true,
-    }),
-  ]
 
+
+export default function Map({ mapStyle = MAP_STYLE, layers }) {
+  
   return (
     <DeckGL
       initialViewState={initialViewState}
