@@ -1,0 +1,26 @@
+{
+  "name": "market-maker",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "deck.gl": "^8.7.8",
+    "dotenv": "^16.0.1",
+    "install": "^0.13.0",
+    "kepler.gl": "^2.5.5",
+    "mapbox-gl": "^2.8.2",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-map-gl": "^7.0.11"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@vitejs/plugin-react": "^1.3.0",
+    "vite": "^2.9.5"
+  }
+}
