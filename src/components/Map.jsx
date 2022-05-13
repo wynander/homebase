@@ -7,7 +7,7 @@ import { scaleThreshold } from 'd3-scale'
 
 const mapBoxApiKey = import.meta.env.VITE_MAPBOX_API_KEY
 
-const INITIAL_VIEW_STATE = {
+const initialViewState = {
   longitude: -120.4,
   latitude: 38,
   zoom: 5.5,
@@ -18,7 +18,7 @@ const INITIAL_VIEW_STATE = {
 
 const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json'
 
-export const COLOR_SCALE = scaleThreshold()
+export const colorScale = scaleThreshold()
   .domain([-5, 0, 2, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40])
   .range([
     [65, 182, 196],
@@ -42,17 +42,26 @@ function getTooltip({ object }) {
     object && {
       html: `\
   <div><b>Name and County</b></div>
-  <div>${object.properties.name}</div>
-  <div>${object.properties.county}</div>
-  <div>${object.properties.currentTypicalHousePrice}</div>
-  <div>${object.properties.houseAppreciation2yr}% YoY Growth (2 Year)</div>
-  <div>${object.properties.houseAppreciation5yr}% YoY Growth (5 Year)</div>
-  <div>${object.properties.houseAppreciation10yr}% YoY Growth (10 Year)</div>
+  <div>${object.properties.NAME}</div>
+  <div>Typical Home Price: ${
+    object.properties.currentTypicalHousePrice === '$NaN'
+      ? 'Not Available from Zillow'
+      : object.properties.currentTypicalHousePrice
+  }</div>
+  <div>2 Year YoY Growth: ${
+    !isNaN(object.properties.houseAppreciation2yr)
+      ? object.properties.houseAppreciation2yr + '%'
+      : 'Not Available from Zillow'
+  }</div>
+  <div>5 Year YoY Growth: ${
+    !isNaN(object.properties.houseAppreciation5yr)
+      ? object.properties.houseAppreciation5yr + '%'
+      : 'Not Available from Zillow'
+  }</div>
   `,
     }
   )
 }
-
 export default function Map({ data = cityData, mapStyle = MAP_STYLE }) {
   const layers = [
     new GeoJsonLayer({
@@ -63,16 +72,22 @@ export default function Map({ data = cityData, mapStyle = MAP_STYLE }) {
       filled: true,
       extruded: true,
       wireframe: true,
-      getFillColor: (city) => COLOR_SCALE(city.properties.houseAppreciation2yr),
-      getLineColor: [255, 255, 255, 200],
-      getElevation: 0,
+      getFillColor: (city) => colorScale(city.properties.houseAppreciation2yr),
+      getLineColor: (city) => colorScale(city.properties.houseAppreciation2yr),
+      getElevation: 0
+      //Code for elevation based on Zillow data
+      // (city) => {
+      //   if (city.properties.currentTypicalHousePrice === '$NaN') return 0
+      //   return parseFloat(city.properties.currentTypicalHousePrice.replace(/[^0-9.-]+/g, '')) / 20
+      // }
+      ,
       pickable: true,
     }),
   ]
 
   return (
     <DeckGL
-      initialViewState={INITIAL_VIEW_STATE}
+      initialViewState={initialViewState}
       controller={true}
       layers={layers}
       getTooltip={getTooltip}

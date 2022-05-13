@@ -1,8 +1,8 @@
 const cityDataUrl =
-  'https://raw.githubusercontent.com/wynander/market-maker/9f290fe64a0b986a33dd3caa027a7e10d3c87118/src/data/california-city-geo.json'
+  'https://raw.githubusercontent.com/wynander/geojson-us-city-boundaries/master/states/ca.json'
 const response = await fetch(cityDataUrl)
 const cityData = await response.json()
-console.log(cityData.features)
+console.log(cityData)
 //With zillow API key this would be fetched from their API and then conditioned the same way
 let zillowData = await fetch('../src/data/City_zhvi.csv', {
   headers: {
@@ -11,35 +11,38 @@ let zillowData = await fetch('../src/data/City_zhvi.csv', {
 })
 const data = await zillowData.text()
 
-const DATA_ARRAY = []
-const rows = data.split('\n')
+addPropertiesToCityJSON(cityData, data)
 
-const currentState = 'CA'
+function addPropertiesToCityJSON(cityData, data) {
+  const zillowDataArray = convertZillowCSVtoArray(data)
 
-rows.forEach((row) => {
-  const columns = row.split(',')
-  if (columns[5] === currentState) {
-    DATA_ARRAY.push(columns)
-  }
-})
+  cityData.features.forEach((city, index) => {
+    let idx = zillowDataArray.findIndex(
+      (cityZillow) =>
+        cityZillow[2] === city.properties.NAME || city.properties.NAME.search(cityZillow[2]) !== -1
+    )
+    if (idx !== -1) {
+      city.properties.houseAppreciation2yr = getHouseAppreciation(zillowDataArray[idx], 2)
+      city.properties.houseAppreciation5yr = getHouseAppreciation(zillowDataArray[idx], 5)
+      city.properties.currentTypicalHousePrice = parseFloat(
+        zillowDataArray[idx][zillowDataArray[idx].length - 1]
+      ).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 })
+    } else {
+      cityData.features[index].splice(1)
+    }
+  })
+  return cityData
+}
 
-cityData.features.forEach((city) => {
-  let idx = DATA_ARRAY.findIndex((cityZillow) => cityZillow[2] === city.properties.name)
-  if (idx !== -1) {
-    city.properties.houseAppreciation2yr = getHouseAppreciation(DATA_ARRAY[idx], 2)
-    city.properties.houseAppreciation5yr = getHouseAppreciation(DATA_ARRAY[idx], 5)
-    city.properties.houseAppreciation10yr = getHouseAppreciation(DATA_ARRAY[idx], 10)
-    city.properties.currentTypicalHousePrice = parseFloat(
-      DATA_ARRAY[idx][DATA_ARRAY[idx].length - 1]
-    ).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 })
-  }
-  if (idx === -1) {
-    city.properties.houseAppreciation2yr = 'Not Available'
-    city.properties.houseAppreciation5yr = 'Not Available'
-    city.properties.houseAppreciation10yr = 'Not Available'
-    city.properties.currentTypicalHousePrice = 'Not Available'
-  }
-})
+function convertZillowCSVtoArray(data) {
+  const zillowDataArray = []
+  const rows = data.split('\n')
+  rows.forEach((row) => {
+    const columns = row.split(',')
+    zillowDataArray.push(columns)
+  })
+  return zillowDataArray
+}
 
 function getHouseAppreciation(row, year) {
   let yearIdx = row.length - 12 * year - 1
