@@ -5,8 +5,9 @@ import { addPropertiesToCityJSON } from './DataConditioning'
 import { GeoJsonLayer } from '@deck.gl/layers'
 import { HexagonLayer } from '@deck.gl/aggregation-layers'
 import { scaleThreshold } from 'd3-scale'
+import { useStore } from './store'
 
-export default function MapData({stateChoices}) {
+export default function MapData({}) {
   const [geoJsonData, setGeoJsonData] = useState({
     type: 'FeatureCollection',
     name: 'tl_2019_02_place',
@@ -19,6 +20,7 @@ export default function MapData({stateChoices}) {
     crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:EPSG::4269' } },
     features: [],
   })
+  const stateChoices = useStore((state) => state.stateChoices)
 
   //Code for hexagon layer
   useEffect(() => {
@@ -95,11 +97,11 @@ export default function MapData({stateChoices}) {
       let mergedData = await addPropertiesToCityJSON(cityBoundaries, zillowData)
       return mergedData
     }
-    
+
     fetchData(stateChoices).then((d) => {
       setGeoJsonData(d)
     })
-  }, [])
+  }, [stateChoices])
 
   const colorScale = scaleThreshold()
     .domain([-5, 0, 2, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40])

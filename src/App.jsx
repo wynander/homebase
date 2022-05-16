@@ -3,15 +3,14 @@ import './App.css'
 import Banner from './components/Banner'
 import MapData from './components/MapData'
 import UserInterface from './components/UserInterface'
-
+import {useStore} from './components/store'
 export default function App() {
-  const stateChoices = ['ca']
 
   return (
     <>
       <Banner />
-      <UserInterface/>
-      <MapData stateChoices={stateChoices}/>
+      <UserInterface />
+      <MapData />
     </>
   )
 }
