@@ -1,7 +1,6 @@
 import React from 'react'
 import { Map as Mapbox } from 'react-map-gl'
 import DeckGL from '@deck.gl/react'
-import { scaleThreshold } from 'd3-scale'
 
 const mapBoxApiKey = import.meta.env.VITE_MAPBOX_API_KEY
 
@@ -15,24 +14,6 @@ const initialViewState = {
 }
 
 const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json'
-
-export const colorScale = scaleThreshold()
-  .domain([-5, 0, 2, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40])
-  .range([
-    [65, 182, 196],
-    [127, 205, 187],
-    [199, 233, 180],
-    [237, 248, 177],
-    [255, 255, 204],
-    [255, 237, 160],
-    [254, 217, 118],
-    [254, 178, 76],
-    [253, 141, 60],
-    [252, 78, 42],
-    [227, 26, 28],
-    [189, 0, 38],
-    [128, 0, 38],
-  ])
 
 //need to implement edge case handling for not available data
 function getTooltip({ object }) {
@@ -61,9 +42,7 @@ function getTooltip({ object }) {
   )
 }
 
-
 export default function Map({ mapStyle = MAP_STYLE, layers }) {
-  
   return (
     <DeckGL
       initialViewState={initialViewState}

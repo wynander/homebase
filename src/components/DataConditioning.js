@@ -1,23 +1,41 @@
-import React, { useEffect } from 'react'
+import { FIPSCodes } from '../data/US_State_FIPS_Codes'
 
 export function addPropertiesToCityJSON(cityData, data) {
   const zillowDataArray = convertZillowCSVtoArray(data)
 
+  //hash map of 'city names + state abbreviations': index  -> to avoid nested loops, instead using O(1) lookup
+  let zillowHash = {}
+  let undefinedCities = []
+
+  zillowDataArray.forEach((row, index) => {
+    zillowHash[row[2] + ' ' + row[4]] = index
+  })
+
   cityData.features.forEach((city, index) => {
-    let idx = zillowDataArray.findIndex(
-      (cityZillow) =>
-        cityZillow[2] === city.properties.NAME || city.properties.NAME.search(cityZillow[2]) !== -1
-    )
-    if (idx !== -1) {
-      city.properties.houseAppreciation2yr = getHouseAppreciation(zillowDataArray[idx], 2)
-      city.properties.houseAppreciation5yr = getHouseAppreciation(zillowDataArray[idx], 5)
+    //look up corresponding state abbreviation based on stateFP code
+    let cityState = city.properties.NAME + ' ' + FIPSCodes[city.properties.STATEFP]
+    let zillowIdx = zillowHash[cityState]
+
+    if (zillowIdx !== undefined) {
+      city.properties.houseAppreciation2yr = getHouseAppreciation(zillowDataArray[zillowIdx], 2)
+      city.properties.houseAppreciation5yr = getHouseAppreciation(zillowDataArray[zillowIdx], 5)
       city.properties.currentTypicalHousePrice = parseFloat(
-        zillowDataArray[idx][zillowDataArray[idx].length - 1]
+        zillowDataArray[zillowIdx][zillowDataArray[zillowIdx].length - 1]
       ).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 })
     } else {
-      cityData.features[index].splice(1)
+      undefinedCities.push(index)
     }
   })
+
+  //sort ascending index order of undefined cities
+  undefinedCities.sort((a, b) => {
+    return a - b
+  })
+  //remove descending index order so splice does not affect indexing of remaining cities
+  for (let i = undefinedCities.length - 1; i >= 0; i--) {
+    cityData.features.splice(undefinedCities[i], 1)
+  }
+
   return cityData
 }
 

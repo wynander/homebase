@@ -1,17 +1,17 @@
-import { Banner } from './components/Banner'
-import React from 'react'
-import DeckGL from '@deck.gl/react'
-import { HeatmapLayer } from '@deck.gl/aggregation-layers'
+import React, { useState } from 'react'
 import './App.css'
+import Banner from './components/Banner'
 import MapData from './components/MapData'
+import UserInterface from './components/UserInterface'
 
 export default function App() {
-  const stateChoices = ['ca', 'tx', 'ny']
+  const stateChoices = ['ca']
 
   return (
     <>
       <Banner />
-      <MapData stateChoices={stateChoices} />
+      <UserInterface/>
+      <MapData stateChoices={stateChoices}/>
     </>
   )
 }

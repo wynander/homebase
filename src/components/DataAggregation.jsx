@@ -12,7 +12,7 @@ export const useFetchCityBoundaries = async (stateChoices) => {
 
   const res = await Promise.all(promises)
   const data = await Promise.all(res.map((r) => r.json()))
-  await data.forEach((d) => {
+  data.forEach((d) => {
     if (cityBoundaries.features) {
       cityBoundaries.features.push(...d.features)
     } else {

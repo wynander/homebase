@@ -1,4 +1,4 @@
 import React from 'react'
-export function Banner({}) {
+export default function Banner({}) {
   return <div className='banner'>Market Maker Prototype</div>
 }

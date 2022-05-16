@@ -4,9 +4,9 @@ import Map from './Map'
 import { addPropertiesToCityJSON } from './DataConditioning'
 import { GeoJsonLayer } from '@deck.gl/layers'
 import { HexagonLayer } from '@deck.gl/aggregation-layers'
-import { colorScale } from './Map'
+import { scaleThreshold } from 'd3-scale'
 
-export default function MapData({ stateChoices }) {
+export default function MapData({stateChoices}) {
   const [geoJsonData, setGeoJsonData] = useState({
     type: 'FeatureCollection',
     name: 'tl_2019_02_place',
@@ -21,15 +21,15 @@ export default function MapData({ stateChoices }) {
   })
 
   //Code for hexagon layer
-
   useEffect(() => {
-    async function fetchData(stateChoices) {
+    async function fetchData() {
       const cityRes = await fetch('../src/data/US_City_points_geojson.json')
       const cityPoints = await cityRes.json()
       let coordinates = []
       cityPoints.features.forEach((city) => {
         coordinates.push({
           COORDINATES: city.geometry.coordinates,
+          properties: { NAME: city.properties.name },
         })
       })
       // console.log(cityPoints)
@@ -43,11 +43,12 @@ export default function MapData({ stateChoices }) {
       // let mergedData = await addPropertiesToCityJSON(cityPoints, zillowData)
       return coordinates
     }
-    fetchData(stateChoices).then((d) => {
+    fetchData().then((d) => {
       setHexData(d)
     })
   }, [])
-  let choice = 1
+
+  let choice = 0
   const layers = []
 
   const colorRange = [
@@ -79,6 +80,7 @@ export default function MapData({ stateChoices }) {
     )
   }
 
+  //Code for city boundaries layer
   useEffect(() => {
     async function fetchData(stateChoices) {
       const cityBoundaries = await useFetchCityBoundaries(stateChoices)
@@ -93,11 +95,29 @@ export default function MapData({ stateChoices }) {
       let mergedData = await addPropertiesToCityJSON(cityBoundaries, zillowData)
       return mergedData
     }
-
+    
     fetchData(stateChoices).then((d) => {
       setGeoJsonData(d)
     })
   }, [])
+
+  const colorScale = scaleThreshold()
+    .domain([-5, 0, 2, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40])
+    .range([
+      [65, 182, 196],
+      [127, 205, 187],
+      [199, 233, 180],
+      [237, 248, 177],
+      [255, 255, 204],
+      [255, 237, 160],
+      [254, 217, 118],
+      [254, 178, 76],
+      [253, 141, 60],
+      [252, 78, 42],
+      [227, 26, 28],
+      [189, 0, 38],
+      [128, 0, 38],
+    ])
 
   if (choice === 0) {
     layers.push(
