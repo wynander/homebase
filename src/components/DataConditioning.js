@@ -1,8 +1,6 @@
 import { FIPSCodes } from '../data/US_State_FIPS_Codes'
 
-export function addPropertiesToCityJSON(cityData, data) {
-  const zillowDataArray = convertZillowCSVtoArray(data)
-
+export function addPropertiesToCityJSON(cityData, zillowDataArray) {
   //hash map of 'city names + state abbreviations': index  -> to avoid nested loops, instead using O(1) lookup
   let zillowHash = {}
   let undefinedCities = []
@@ -26,7 +24,6 @@ export function addPropertiesToCityJSON(cityData, data) {
       undefinedCities.push(index)
     }
   })
-
   //sort ascending index order of undefined cities
   undefinedCities.sort((a, b) => {
     return a - b
@@ -39,7 +36,7 @@ export function addPropertiesToCityJSON(cityData, data) {
   return cityData
 }
 
-function convertZillowCSVtoArray(data) {
+export function convertZillowCSVtoArray(data) {
   const zillowDataArray = []
   const rows = data.split('\n')
   rows.forEach((row) => {

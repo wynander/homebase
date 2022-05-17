@@ -4,6 +4,8 @@ import { useStore } from './store'
 export default function UserInterface({}) {
   const setStateChoices = useStore((state) => state.setStateChoices)
   const stateChoices = useStore((state) => state.stateChoices)
+  const setLayerChoice = useStore((state) => state.setLayerChoice)
+  const layerChoice = useStore((state) => state.layerChoice)
   const [inputText, setInputText] = useState('')
 
   const handleSubmit = (e) => {
@@ -19,11 +21,24 @@ export default function UserInterface({}) {
     setInputText(e.target.value)
   }
 
+  const handleClick = (view) => {
+    setLayerChoice(view)
+  }
+  
   //implement fuse.js for abbreviation / state name matching
+
   return (
     <div className='ui-container'>
       <h4 className='ui-header'>Market Maker Options</h4>
-      <div className='layer-option overview'></div>
+      <div className='layer-options'>
+        <div className='view-choice overview'>
+          <button onClick={()=>handleClick('overview')}></button>Overview
+        </div>
+        <div className='view-choice stateview'>
+          <button onClick={()=>handleClick('stateview')}></button>Detailed Cities
+        </div>
+      </div>
+
       <form onSubmit={handleSubmit}>
         <input
           type='text'
@@ -31,10 +46,8 @@ export default function UserInterface({}) {
           value={inputText}
           onChange={handleChange}
         />
-        <button></button>
+        <button>Add</button>
       </form>
-
-      <div className='layer-option stateview'></div>
     </div>
   )
 }

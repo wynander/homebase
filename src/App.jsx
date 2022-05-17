@@ -3,9 +3,8 @@ import './App.css'
 import Banner from './components/Banner'
 import MapData from './components/MapData'
 import UserInterface from './components/UserInterface'
-import {useStore} from './components/store'
-export default function App() {
 
+export default function App() {
   return (
     <>
       <Banner />

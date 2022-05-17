@@ -1,7 +1,6 @@
 import { lowercaseStateAbbreviations } from '../data/US_State_keys'
 
 export const useFetchCityBoundaries = async (stateChoices) => {
-  console.log(stateChoices)
   const promises = []
   lowercaseStateAbbreviations.forEach((state) => {
     if (stateChoices.includes(state)) {
