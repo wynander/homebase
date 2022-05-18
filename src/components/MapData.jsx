@@ -1,74 +1,57 @@
 import React, { useEffect, useState } from 'react'
-import { useFetchCityBoundaries } from './DataAggregation'
 import Map from './Map'
 import { addPropertiesToCityJSON } from './DataConditioning'
 import { GeoJsonLayer } from '@deck.gl/layers'
 import { HexagonLayer } from '@deck.gl/aggregation-layers'
-import { colorScale, colorRange } from './colorScales'
+import { colorScale, colorRange, colorDomain } from './colorScales'
 import { useStore } from './store'
 import { convertZillowCSVtoArray } from './DataConditioning'
+import { fetchZillowData, fetchCityBoundaryData, fetchCityPointData } from '../hooks/api'
 
 export default function MapData({}) {
+  const stateChoices = useStore((state) => state.stateChoices)
+  const layerChoice = useStore((state) => state.layerChoice)
+  const addToLoadingStack = useStore((state) => state.addToLoadingStack)
+  const removeFromLoadingStack = useStore((state) => state.removeFromLoadingStack)
+
+  const [zillowData, setZillowData] = useState(null)
   const [geoJsonData, setGeoJsonData] = useState({
     type: 'FeatureCollection',
-    name: 'tl_2019_02_place',
-    crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:EPSG::4269' } },
     features: [],
   })
   const [hexData, setHexData] = useState({
     type: 'FeatureCollection',
-    name: 'tl_2019_02_place',
-    crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:EPSG::4269' } },
     features: [],
   })
-  const stateChoices = useStore((state) => state.stateChoices)
-  const layerChoice = useStore((state) => state.layerChoice)
-  const isVisibleHex = layerChoice === 'overview' ? true : false
-  const isVisibleGeoJSON = layerChoice === 'stateview' ? true : false
-  const [zillowData, setZillowData] = useState(null)
 
-  //Code for hexagon layer
   useEffect(() => {
-    async function fetchCityPointData() {
-      const cityRes = await fetch('../src/data/US_City_points_geojson.json')
-      const cityPoints = await cityRes.json()
-      let coordinates = { features: [] }
-      cityPoints.features.forEach((city) => {
-        coordinates.features.push({
-          COORDINATES: city.geometry.coordinates,
-          properties: { NAME: city.properties.name, STATEFP: city.properties.state_fips },
-        })
-      })
-      // //With zillow API key this would be fetched from their API and then conditioned the same way
-      let zillowRes = await fetch('../src/data/Zillow_Home_Value_By_City_May_2022.csv', {
-        headers: {
-          'content-type': 'text/csv;charset=UTF-8',
-        },
-      })
-      let zillowDataStateUpdate = await zillowRes.text()
-      zillowDataStateUpdate = convertZillowCSVtoArray(zillowDataStateUpdate)
-      let mergedData = await addPropertiesToCityJSON(coordinates, zillowDataStateUpdate)
-      setZillowData(zillowDataStateUpdate)
-      return mergedData
-    }
-    fetchCityPointData().then((d) => {
-      setHexData(d)
+    addToLoadingStack('fetchingZillowData')
+    fetchZillowData().then((data) => {
+      setZillowData(convertZillowCSVtoArray(data))
+      removeFromLoadingStack('fetchingZillowData')
     })
   }, [])
 
-  //Code for city boundaries layer
+  //Hexagon layer spatial join side effect
   useEffect(() => {
-    async function fetchData(stateChoices) {
-      const cityBoundaries = await useFetchCityBoundaries(stateChoices)
+    if (zillowData === null) return
+    addToLoadingStack('fetchingCityPointData')
+    fetchCityPointData().then((coordinates) => {
+      const hexDataUpdate = addPropertiesToCityJSON(coordinates, zillowData)
+      setHexData(hexDataUpdate)
+      removeFromLoadingStack('fetchingCityPointData')
+    })
+  }, [zillowData])
 
-      let mergedData = await addPropertiesToCityJSON(cityBoundaries, zillowData)
-      return mergedData
-    }
-    if (zillowData !== null) {
-      fetchData(stateChoices).then((d) => {
-        setGeoJsonData(d)
-      })
-    }
+  //GeoJSON layer spatial join side effect
+  useEffect(() => {
+    if (zillowData === null) return
+    addToLoadingStack('fetchingCityBoundaryData')
+    fetchCityBoundaryData(stateChoices).then((boundaries) => {
+      const geoDataUpdate = addPropertiesToCityJSON(boundaries, zillowData)
+      setGeoJsonData(geoDataUpdate)
+      removeFromLoadingStack('fetchingCityBoundaryData')
+    })
   }, [stateChoices, zillowData])
 
   const getMean2yr = (points) => {
@@ -78,7 +61,7 @@ export default function MapData({}) {
       points.forEach((point) => {
         if (!isNaN(point.properties.houseAppreciation2yr)) {
           sum += +point.properties.houseAppreciation2yr
-        }else{
+        } else {
           ct--
         }
       })
@@ -92,9 +75,11 @@ export default function MapData({}) {
       let ct = points.length
       points.forEach((point) => {
         if (point.properties.currentTypicalHousePrice !== '$NaN') {
-          let dollarsAsFloat = parseFloat(point.properties.currentTypicalHousePrice.replace(/[^0-9-.]/g, '')) 
+          let dollarsAsFloat = parseFloat(
+            point.properties.currentTypicalHousePrice.replace(/[^0-9-.]/g, '')
+          )
           sum += dollarsAsFloat
-        }else{
+        } else {
           ct--
         }
       })
@@ -102,11 +87,15 @@ export default function MapData({}) {
     }
   }
 
+  const isVisible = layerChoice === 'overview' ? true : false
+  const detailedElevation = false
+
   const layers = [
     new HexagonLayer({
       id: 'heatmap',
       opacity: 1,
       colorRange,
+      colorDomain,
       coverage: 1,
       data: hexData.features,
       elevationRange: [0, 1000000],
@@ -120,7 +109,7 @@ export default function MapData({}) {
       transitions: {
         elevationScale: 1,
       },
-      visible: isVisibleHex,
+      visible: isVisible,
     }),
     new GeoJsonLayer({
       id: 'geojson',
@@ -132,14 +121,13 @@ export default function MapData({}) {
       wireframe: true,
       getFillColor: (city) => colorScale(city.properties.houseAppreciation2yr),
       getLineColor: (city) => colorScale(city.properties.houseAppreciation2yr),
-      getElevation: 0,
-      //Code for elevation based on Zillow data
-      // (city) => {
-      //   if (city.properties.currentTypicalHousePrice === '$NaN') return 0
-      //   return parseFloat(city.properties.currentTypicalHousePrice.replace(/[^0-9.-]+/g, '')) / 20
-      // }
+      getElevation: (city) => {
+        if (detailedElevation === false || city.properties.currentTypicalHousePrice === '$NaN')
+          return 0
+        return parseFloat(city.properties.currentTypicalHousePrice.replace(/[^0-9.-]+/g, '')) / 20
+      },
       pickable: true,
-      visible: isVisibleGeoJSON,
+      visible: !isVisible,
     }),
   ]
 

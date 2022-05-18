@@ -8,6 +8,11 @@ export const useStore = create((set) => ({
   addToLoadingStack: (newLoadingInstance) => {
     set((state) => ({ loadingStack: [...state.loadingStack, newLoadingInstance] }))
   },
-  layerChoice: 'overview',
-  setLayerChoice: (userInput) => set(() => ({ layerChoice: userInput })),
+  removeFromLoadingStack: (loadingInstance) => {
+    set((state) => ({
+      loadingStack: state.loadingStack.filter((instance) => instance !== loadingInstance),
+    }))
+  },
+  layerChoice: 'overview', //true == hex, false == geoJSON
+  setLayerChoice: (input) => set(() => ({ layerChoice: input})),
 }))

@@ -5,6 +5,7 @@ import MapData from './components/MapData'
 import UserInterface from './components/UserInterface'
 
 export default function App() {
+
   return (
     <>
       <Banner />

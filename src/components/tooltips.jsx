@@ -1,9 +1,20 @@
-//need to implement edge case handling for not available data
 export function getTooltipHex({ object }) {
   return (
     object && {
       html: `\
-      <div></div>
+      <div>YoY return (previous 2 years): ${object.colorValue.toFixed(2)}%</div>
+      <div>Typical Home Price: ${object.elevationValue.toLocaleString('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 0,
+      })}</div>
+
+      ${object.points
+        .map((point) => {
+          return `<div class="tooltip-city">${point.source.properties.NAME}</div>`
+        })
+        .join('')}
+        
       `,
     }
   )
