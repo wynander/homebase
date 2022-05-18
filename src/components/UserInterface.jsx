@@ -20,7 +20,6 @@ export default function UserInterface({}) {
   }
 
   const handleChange = (e) => {
-    console.log(e.target.value)
     setInputText(e.target.value)
   }
 
