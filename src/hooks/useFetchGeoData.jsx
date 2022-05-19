@@ -15,9 +15,11 @@ function useFetchGeoData(zillowData) {
   useEffect(() => {
     if (zillowData === null) return
     addToLoadingStack('fetchingCityBoundaryData')
+
     fetchCityBoundaryData(stateChoices).then((boundaries) => {
       const geoDataUpdate = addPropertiesToCityJSON(boundaries, zillowData)
       setGeoJsonData(geoDataUpdate)
+      
       removeFromLoadingStack('fetchingCityBoundaryData')
     })
   }, [stateChoices, zillowData])

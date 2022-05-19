@@ -14,9 +14,11 @@ function useFetchHexData(zillowData) {
   useEffect(() => {
     if (zillowData === null) return
     addToLoadingStack('fetchingCityPointData')
+
     fetchCityPointData().then((coordinates) => {
       const hexDataUpdate = addPropertiesToCityJSON(coordinates, zillowData)
       setHexData(hexDataUpdate)
+      
       removeFromLoadingStack('fetchingCityPointData')
     })
   }, [zillowData])

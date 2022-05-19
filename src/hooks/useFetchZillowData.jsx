@@ -10,8 +10,10 @@ function useFetchZillowData() {
 
   useEffect(() => {
     addToLoadingStack('fetchingZillowData')
+
     fetchZillowData().then((data) => {
       setZillowData(convertCSVtoArray(data))
+      
       removeFromLoadingStack('fetchingZillowData')
     })
   }, [])

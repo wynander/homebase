@@ -1,7 +1,7 @@
 
 export const fetchCityPointData = async () => {
   const cityRes = await fetch(
-    'https://raw.githubusercontent.com/wynander/market-maker/master/src/data/US_City_points_geojson.json'
+    'https://raw.githubusercontent.com/wynander/market-maker/master/src/static/US_City_points_geojson.json'
   );
   const cityPoints = await cityRes.json();
   let coordinates = { features: [] };
