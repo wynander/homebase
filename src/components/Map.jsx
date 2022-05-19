@@ -21,24 +21,24 @@ export default function Map({ mapStyle = MAP_STYLE, layers }) {
   const layerChoice = useStore((state) => state.layerChoice)
 
   return (
-      <DeckGL
-        initialViewState={initialViewState}
-        controller={true}
-        layers={layers}
-        getTooltip={(object) => {
-          if (layerChoice === 'stateview') {
-            return getTooltipGeo(object)
-          } else {
-            return getTooltipHex(object)
-          }
-        }}
-      >
-        <Mapbox
-          mapboxAccessToken={mapBoxApiKey}
-          reuseMaps
-          mapStyle={mapStyle}
-          preventStyleDiffing={true}
-        />
-      </DeckGL>
+    <DeckGL
+      initialViewState={initialViewState}
+      controller={true}
+      layers={layers}
+      getTooltip={(object) => {
+        if (layerChoice === 'stateview') {
+          return getTooltipGeo(object)
+        } else {
+          return getTooltipHex(object)
+        }
+      }}
+    >
+      <Mapbox
+        mapboxAccessToken={mapBoxApiKey}
+        reuseMaps
+        mapStyle={'mapbox://styles/mapbox/dark-v10'}
+        preventStyleDiffing={true}
+      />
+    </DeckGL>
   )
 }

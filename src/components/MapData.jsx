@@ -13,6 +13,8 @@ export default function MapData({}) {
   const layerChoice = useStore((state) => state.layerChoice)
   const addToLoadingStack = useStore((state) => state.addToLoadingStack)
   const removeFromLoadingStack = useStore((state) => state.removeFromLoadingStack)
+  const radius = useStore((state) => state.radius)
+  const elevationScale = useStore((state) => state.elevationScale)
 
   const [zillowData, setZillowData] = useState(null)
   const [geoJsonData, setGeoJsonData] = useState({
@@ -93,7 +95,7 @@ export default function MapData({}) {
   const layers = [
     new HexagonLayer({
       id: 'heatmap',
-      opacity: 1,
+      opacity: 0.2,
       colorRange,
       colorDomain,
       coverage: 1,
@@ -104,17 +106,19 @@ export default function MapData({}) {
       getElevationValue: getElevation,
       getColorValue: getMean2yr,
       pickable: true,
-      radius: 10000,
+      radius,
       upperPercentile: 100,
-      transitions: {
-        elevationScale: 1,
-      },
+      elevationScale: elevationScale / 2,
       visible: isVisible,
+      updateTriggers: {
+        getElevationValue: { radius },
+        getColorValue: { radius },
+      },
     }),
     new GeoJsonLayer({
       id: 'geojson',
       data: geoJsonData,
-      opacity: 0.8,
+      opacity: 0.2,
       stroked: false,
       filled: true,
       extruded: true,

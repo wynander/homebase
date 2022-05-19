@@ -15,10 +15,10 @@ export const colorRange = [
   [189, 0, 38],
   [128, 0, 38],
 ]
-export const colorDomain = [-5, 40]
+export const colorDomain = [-5, 43]
 
 export const colorScale = scaleThreshold()
-  .domain([-5, 0, 2, 4, 8, 12, 16, 20, 24, 28, 32, 36, 40])
+  .domain([-5, -1, 3, 7, 11, 15, 19, 23, 27, 31, 35, 39, 43])
   .range([
     [65, 182, 196],
     [127, 205, 187],

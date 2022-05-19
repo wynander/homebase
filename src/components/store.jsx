@@ -14,5 +14,11 @@ export const useStore = create((set) => ({
     }))
   },
   layerChoice: 'overview', //true == hex, false == geoJSON
-  setLayerChoice: (input) => set(() => ({ layerChoice: input})),
+  setLayerChoice: (input) => set(() => ({ layerChoice: input })),
+  coverage: 1,
+  elevationScale: 1,
+  radius: 10000,
+  setCoverage: (input) => set(() => ({ coverage: input })),
+  setRadius: (input) => set(() => ({ radius: input })),
+  setElevationScale: (input) => set(() => ({ elevationScale: input })),
 }))
