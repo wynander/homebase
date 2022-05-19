@@ -4,4 +4,4 @@ Kepler.gl inspired web-app used to visualize housing trends, allowing for early-
 
 Made with React, DeckGL (w/ Mapbox baselayer), and Zustand
 
-Current status: Gives users the choiuce between showing a housing trends overview or detailed city boundaries and their recent real-estate properties. Adding user interfaces for interactivity. 
+Current status: Gives users the choice between showing a housing trends overview or detailed city boundaries and their recent real-estate characteristics. Adding fuzzy search for state names / abbreviations, geolocating search results and zillow redirects. 
