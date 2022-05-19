@@ -1,4 +1,4 @@
-import { useStore } from '../components/store'
+import { useStore } from '../store/store'
 
 const useLoadingStatus = () => {
   const loadingStack = useStore((state) => state.loadingStack)

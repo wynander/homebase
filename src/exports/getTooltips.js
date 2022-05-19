@@ -13,12 +13,12 @@ export function getTooltipHex({ object }) {
         .map((point) => {
           return `<div class="tooltip-city">${point.source.properties.NAME}</div>`
         })
-        .join('')}
-        
+        .join('')}    
       `,
     }
   )
 }
+
 export function getTooltipGeo({ object }) {
   return (
     object && {

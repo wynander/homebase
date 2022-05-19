@@ -1,5 +1,5 @@
 import React from 'react'
-import { useStore } from './store.jsx'
+import { useStore } from '../store/store.jsx'
 
 export function PropertiesSliders() {
   const radius = useStore((state) => state.radius)

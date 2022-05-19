@@ -13,7 +13,7 @@ export const useStore = create((set) => ({
       loadingStack: state.loadingStack.filter((instance) => instance !== loadingInstance),
     }))
   },
-  layerChoice: 'overview', //true == hex, false == geoJSON
+  layerChoice: 'overview', 
   setLayerChoice: (input) => set(() => ({ layerChoice: input })),
   coverage: 1,
   elevationScale: 1,

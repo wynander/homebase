@@ -1,8 +1,8 @@
 import React from 'react'
 import { Map as Mapbox } from 'react-map-gl'
 import DeckGL from '@deck.gl/react'
-import { useStore } from './store'
-import { getTooltipHex, getTooltipGeo } from './tooltips'
+import { useStore } from '../store/store'
+import { getTooltipHex, getTooltipGeo } from '../exports/getTooltips'
 
 const mapBoxApiKey = import.meta.env.VITE_MAPBOX_API_KEY
 

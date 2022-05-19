@@ -1,4 +1,5 @@
-import { FIPSCodes } from '../data/US_State_FIPS_Codes'
+import { FIPSCodes } from '../exports/US_State_FIPS_Codes'
+import { getHouseAppreciation } from './getHouseAppreciation'
 
 export function addPropertiesToCityJSON(cityData, zillowDataArray) {
   //hash map of 'city names + state abbreviations': index  -> to avoid nested loops, instead using O(1) lookup
@@ -36,40 +37,4 @@ export function addPropertiesToCityJSON(cityData, zillowDataArray) {
   return cityData
 }
 
-export function convertZillowCSVtoArray(data) {
-  const zillowDataArray = []
-  const rows = data.split('\n')
-  rows.forEach((row) => {
-    const columns = row.split(',')
-    zillowDataArray.push(columns)
-  })
-  return zillowDataArray
-}
 
-function getHouseAppreciation(row, year) {
-  let yearIdx = row.length - 12 * year - 1
-  if (row[yearIdx] === '') {
-    let leftOffset = 1
-    let rightOffset = 1
-    let left = row[yearIdx - leftOffset]
-    let right = row[yearIdx + rightOffset]
-    if (left === '') {
-      while (left === '') {
-        leftOffset++
-        left = row[yearIdx - leftOffset]
-      }
-    }
-    if (right === '') {
-      while (right === '') {
-        rightOffset++
-        right = row[yearIdx + rightOffset]
-      }
-    }
-    if ((leftOffset > 6 || rightOffset > 6) && row[row.length - 1] !== '') {
-      return 'Not Available'
-    }
-    let yearVal = ((right - left) / (leftOffset + rightOffset)) * leftOffset + left
-    return ((100 * (row[row.length - 1] - yearVal)) / year / yearVal).toFixed(2)
-  }
-  return ((100 * (row[row.length - 1] - row[yearIdx])) / year / row[yearIdx]).toFixed(2)
-}

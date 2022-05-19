@@ -1,6 +1,6 @@
 import { PropertiesSliders } from './PropertiesSliders';
 import React, { useState } from 'react'
-import { useStore } from './store'
+import { useStore } from '../store/store'
 import useLoadingStatus from '../hooks/useLoadingStatus'
 import Loading from './Loading'
 
@@ -36,7 +36,7 @@ export default function UserInterface({}) {
         <div className='layer-choice overview'>
           <button onClick={() => handleClick('overview')}>
             <svg version='1.1' id='Layer_1' x='0px' y='0px' viewBox='0 0 512.004 512.004'>
-              <g id='b123_geometrical_shape'>
+              <g>
                 <path
                   d='M128.038,228.352l123.586,70.621c1.359,0.777,2.869,1.165,4.378,1.165c1.51,0,3.028-0.388,4.387-1.165l123.401-70.621
 				c2.745-1.571,4.44-4.493,4.44-7.654l0.185-141.241c0-3.169-1.695-6.1-4.449-7.671L260.382,1.165
