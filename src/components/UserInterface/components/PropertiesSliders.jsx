@@ -24,7 +24,7 @@ export function PropertiesSliders() {
           name='radius'
           type='range'
           step='100'
-          min='500'
+          min='0'
           max='20000'
           defaultValue={radius}
           onChange={(e) => handleChange(e, 'rad')}
@@ -39,7 +39,7 @@ export function PropertiesSliders() {
           step='1'
           min='0'
           max='4'
-          defaultValue={elevationScale / 2}
+          defaultValue={elevationScale}
           onChange={(e) => handleChange(e, 'el')}
         />
       </div>

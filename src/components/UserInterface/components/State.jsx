@@ -12,8 +12,11 @@ export default function State({ stateName, index, className }) {
   }
 
   return (
-    <button onClick={handleClick} className={className}>
+    <div className={className}>
       {stateName}
-    </button>
+      <button className='remove-state' onClick={handleClick}>
+        &#10060;
+      </button>
+    </div>
   )
 }

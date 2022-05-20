@@ -51,8 +51,14 @@ export default function Map({}) {
       filled: true,
       extruded: true,
       wireframe: true,
-      getFillColor: (city) => colorScale(city.properties.houseAppreciation2yr),
-      getLineColor: (city) => colorScale(city.properties.houseAppreciation2yr),
+      getFillColor: (city) =>
+        !isNaN(city.properties.houseAppreciation2yr)
+          ? colorScale(city.properties.houseAppreciation2yr)
+          : [0, 0, 0, 255],
+      getLineColor: (city) =>
+        !isNaN(city.properties.houseAppreciation2yr)
+          ? colorScale(city.properties.houseAppreciation2yr)
+          : [0, 0, 0, 255],
       pickable: true,
       visible: !isVisible,
     }),

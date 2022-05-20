@@ -23,8 +23,7 @@ export function getTooltipGeo({ object }) {
   return (
     object && {
       html: `\
-  <div><b>Name and County</b></div>
-  <div>${object.properties.NAME}</div>
+  <div><b>${object.properties.NAME}</b></div>
   <div>Typical Home Price: ${
     object.properties.currentTypicalHousePrice === '$NaN'
       ? 'Not Available from Zillow'
