@@ -1,8 +1,8 @@
-import { useStore } from '../store/store'
+import { useStore } from '@/store/store'
 
 const useLoadingStatus = () => {
   const loadingStack = useStore((state) => state.loadingStack)
-    return loadingStack.length > 0 ? true : false
+  return loadingStack.length > 0 ? true : false
 }
 
 export default useLoadingStatus

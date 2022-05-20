@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { fetchCityPointData } from '../api/fetchCityPointData'
-import { addPropertiesToCityJSON } from '../data/addPropertiesToCityJSON'
-import { useStore } from '../store/store'
+import { fetchCityPointData } from '@/api/fetchCityPointData'
+import { addPropertiesToCityJSON } from '@/data/addPropertiesToCityJSON'
+import { useStore } from '@/store/store'
 
 function useFetchHexData(zillowData) {
   const addToLoadingStack = useStore((state) => state.addToLoadingStack)
@@ -18,7 +18,7 @@ function useFetchHexData(zillowData) {
     fetchCityPointData().then((coordinates) => {
       const hexDataUpdate = addPropertiesToCityJSON(coordinates, zillowData)
       setHexData(hexDataUpdate)
-      
+
       removeFromLoadingStack('fetchingCityPointData')
     })
   }, [zillowData])

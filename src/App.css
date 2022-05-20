@@ -45,7 +45,8 @@
   width: 100%;
 }
 .loading {
-  flex: 1;
+  margin: 0.5rem;
+  margin-bottom: 0;
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -57,6 +58,10 @@
   justify-self: end;
 }
 
+.loading-container.off {
+  visibility: hidden;
+}
+
 .layer-choice > button {
   max-width: 100%;
   height: auto;
@@ -65,20 +70,21 @@
   font-weight: bold;
   cursor: pointer;
   background-color: rgba(0, 0, 0, 0);
-  color: rgb(152,152,152);
+  color: rgb(152, 152, 152);
   font-size: medium;
   padding: 5px;
   margin: 5px;
   border-radius: 5px;
 }
 
-button.active, button.active>svg{
-color: #fff;
-fill: #fff;
+button.active,
+button.active > svg {
+  color: #fff;
+  fill: #fff;
 }
 
 .layer-choice > button:hover {
-  background-color: #202020;
+  background-color: #181818;
 }
 
 button > svg {
@@ -99,7 +105,7 @@ button > svg {
   height: 2rem;
 }
 
-.state-button {
+.add-state-button {
   height: 100%;
   aspect-ratio: 1;
   border: 0;
@@ -113,24 +119,172 @@ button > svg {
 }
 
 .state-button:hover {
-  background-color: #202020;
+  background-color: #181818;
 }
 
 .state-input {
   height: 100%;
   flex: 1;
   border: 0;
-  background-color: #202020;
+  background-color: #181818;
   color: #fff;
   font-size: 1rem;
   padding: 0.5rem;
   border-radius: 5px;
 }
 
+.search-label {
+  color: #fff;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+
+.search-tooltip {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 1.1rem;
+  background-color: #121212;
+  color: #fff;
+  font-size: 90%;
+  padding: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  visibility: hidden;
+}
+
+.info-icon:hover .search-tooltip {
+  opacity: 0.9;
+  visibility: visible;
+}
+
+.info-icon {
+  width: 1rem;
+  fill: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 0.5rem;
+}
+
+.search-result {
+  position: relative;
+  width: 100%;
+  background-color: #181818;
+  background-color: #181818;
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  border: 1px solid #181818;
+  margin: 0.5rem;
+}
+
+.search-result::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 6px 8px 6px;
+  border-color: transparent transparent #181818 transparent;
+  top: -8px;
+  left: 5px;
+  visibility: visible;
+}
+
+.search-result:hover,
+.search-result:focus {
+  border: 1px solid #fff;
+}
+
+.search-result:hover::before,
+.search-result:focus::before {
+  border-color: transparent transparent #fff transparent;
+}
+
+.search-result.no-results,
+.search-result.no-results::before {
+  visibility: hidden;
+}
+
+.state-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex: 1;
+  overflow-y: scroll;
+  padding: 0.3rem;
+  background-color: #181818;
+  border-radius: 5px;
+}
+
+.state {
+  height: min-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1rem;
+  padding: 0.5rem;
+  text-overflow: ellipsis;
+  border-radius: 5px;
+  background-color: #202020;
+  color: #fff;
+  border: none;
+  margin: 0.1rem;
+}
+#state-scrollbar::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgb(0, 0, 0);
+  -webkit-box-shadow: inset 0 0 6px #050505;
+  background-color: #121212;
+}
+
+#state-scrollbar::-webkit-scrollbar {
+  width: 10px;
+  background-color: #181818;
+}
+
+#state-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset -5px 0 5px rgba(134, 134, 134, 0.117);
+  box-shadow: inset -5px 0 5px rgba(0, 0, 0, 0.117);
+  background-color: #202020;
+}
 body {
   overflow: hidden;
 }
 
+.no-states {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  font-size: 1.5rem;
+  color: rgb(122, 122, 122);
+  text-shadow: 0px 0px 20px rgba(0, 0, 0, 1);
+}
+
+.list-title {
+  font-size: 1em;
+  color: #fff;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+
+.spacer {
+  flex: 1;
+}
 .lds-ring {
   display: flex;
   position: relative;

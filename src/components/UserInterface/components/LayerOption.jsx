@@ -1,5 +1,5 @@
 import React from 'react'
-import { useStore } from '../store/store'
+import { useStore } from '@/store/store'
 
 export default function LayerOption({ layer, layerName, children }) {
   const setLayerChoice = useStore((state) => state.setLayerChoice)

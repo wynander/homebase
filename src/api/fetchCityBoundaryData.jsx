@@ -1,4 +1,4 @@
-import { lowercaseStateAbbreviations } from '../exports/US_State_keys'
+import { lowercaseStateAbbreviations } from '@/exports/US_State_keys'
 
 export const fetchCityBoundaryData = async (stateChoices) => {
   const promises = []

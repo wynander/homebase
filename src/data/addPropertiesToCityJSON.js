@@ -1,4 +1,4 @@
-import { FIPSCodes } from '../exports/US_State_FIPS_Codes'
+import { FIPSCodes } from '@/exports/US_State_FIPS_Codes'
 import { getHouseAppreciation } from './getHouseAppreciation'
 
 export function addPropertiesToCityJSON(cityData, zillowDataArray) {
@@ -36,5 +36,3 @@ export function addPropertiesToCityJSON(cityData, zillowDataArray) {
 
   return cityData
 }
-
-

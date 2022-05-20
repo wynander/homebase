@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { fetchZillowData } from '../api/fetchZillowData'
-import { convertCSVtoArray } from '../data/convertCSVtoArray'
-import { useStore } from '../store/store'
+import { fetchZillowData } from '@/api/fetchZillowData'
+import { convertCSVtoArray } from '@/data/convertCSVtoArray'
+import { useStore } from '@/store/store'
 
 function useFetchZillowData() {
   const addToLoadingStack = useStore((state) => state.addToLoadingStack)
@@ -13,7 +13,7 @@ function useFetchZillowData() {
 
     fetchZillowData().then((data) => {
       setZillowData(convertCSVtoArray(data))
-      
+
       removeFromLoadingStack('fetchingZillowData')
     })
   }, [])

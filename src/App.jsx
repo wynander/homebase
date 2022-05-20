@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import './App.css'
-import Banner from './components/Banner'
-import MapData from './components/MapData'
-import UserInterface from './components/UserInterface'
-import Legend from './components/Legend'
+import Banner from './components/Banner/Banner'
+import Map from './components/Map/Map'
+import UserInterface from './components/UserInterface/UserInterface'
+import Legend from './components/Legend/Legend'
 
 export default function App() {
 
@@ -12,7 +12,7 @@ export default function App() {
       <Banner />
       <Legend />
       <UserInterface />
-      <MapData />
+      <Map />
     </>
   )
 }

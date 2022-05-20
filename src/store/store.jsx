@@ -1,7 +1,7 @@
 import create from 'zustand'
 
 export const useStore = create((set) => ({
-  stateChoices: ['ca'],
+  stateChoices: [],
   setStateChoices: (userInput) => set(() => ({ stateChoices: userInput })),
   removeAllStateChoices: () => set({ stateChoices: [] }),
   loadingStack: [],
@@ -13,7 +13,7 @@ export const useStore = create((set) => ({
       loadingStack: state.loadingStack.filter((instance) => instance !== loadingInstance),
     }))
   },
-  layerChoice: 'overview', 
+  layerChoice: 'overview',
   setLayerChoice: (input) => set(() => ({ layerChoice: input })),
   coverage: 1,
   elevationScale: 1,

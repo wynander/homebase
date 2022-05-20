@@ -1,15 +1,15 @@
 import { HexagonLayer } from '@deck.gl/aggregation-layers'
 import { GeoJsonLayer } from '@deck.gl/layers'
 import React from 'react'
-import { colorDomain, colorRange, colorScale } from '../exports/colorScales'
-import useFetchGeoData from '../hooks/useFetchGeoData'
-import useFetchHexData from '../hooks/useFetchHexData'
-import useFetchZillowData from '../hooks/useFetchZillowData'
-import { useStore } from '../store/store'
-import Map from './Map'
-import { getColorValue, getElevationValue } from '../exports/getAttributes'
+import { colorDomain, colorRange, colorScale } from '@/exports/colorScales'
+import useFetchGeoData from '@/hooks/useFetchGeoData'
+import useFetchHexData from '@/hooks/useFetchHexData'
+import useFetchZillowData from '@/hooks/useFetchZillowData'
+import { useStore } from '@/store/store'
+import Deck from './components/Deck'
+import { getColorValue, getElevationValue } from '@/exports/getAttributes'
 
-export default function MapData({}) {
+export default function Map({}) {
   const layerChoice = useStore((state) => state.layerChoice)
   const radius = useStore((state) => state.radius)
   const elevationScale = useStore((state) => state.elevationScale)
@@ -60,7 +60,7 @@ export default function MapData({}) {
 
   return (
     <div>
-      <Map layers={layers} />
+      <Deck layers={layers} />
     </div>
   )
 }
