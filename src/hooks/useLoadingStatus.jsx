@@ -1,7 +1,7 @@
 import { useStore } from '@/store/store'
 
 const useLoadingStatus = () => {
-  const loadingStack = useStore((state) => state.loadingStack)
+  const { loadingStack } = useStore()
   return loadingStack.length > 0 ? true : false
 }
 

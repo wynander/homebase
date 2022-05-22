@@ -4,9 +4,8 @@ import { addPropertiesToCityJSON } from '@/data/addPropertiesToCityJSON'
 import { useStore } from '@/store/store'
 
 function useFetchGeoData(zillowData) {
-  const addToLoadingStack = useStore((state) => state.addToLoadingStack)
-  const removeFromLoadingStack = useStore((state) => state.removeFromLoadingStack)
-  const stateChoices = useStore((state) => state.stateChoices)
+  const { addToLoadingStack, removeFromLoadingStack, stateChoices } = useStore()
+  
   const [geoJsonData, setGeoJsonData] = useState({
     type: 'FeatureCollection',
     features: [],

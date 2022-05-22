@@ -3,8 +3,8 @@ import { useStore } from '@/store/store'
 import { stateFuse } from '@/exports/stateSearchEntries'
 
 export default function AddStateInput() {
-  const setStateChoices = useStore((state) => state.setStateChoices)
-  const stateChoices = useStore((state) => state.stateChoices)
+  const { stateChoices, setStateChoices } = useStore()
+
   const [inputText, setInputText] = useState('')
   const [searchResults, setSearchResults] = useState([])
 

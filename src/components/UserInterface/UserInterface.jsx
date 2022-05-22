@@ -7,7 +7,7 @@ import Loading from './components/Loading'
 import Overview from './components/Overview'
 
 export default function UserInterface({}) {
-  const layerChoice = useStore((state) => state.layerChoice)
+  const {layerChoice} = useStore()
   const isLoading = useLoadingStatus()
 
   return (

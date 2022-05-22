@@ -4,8 +4,8 @@ import { addPropertiesToCityJSON } from '@/data/addPropertiesToCityJSON'
 import { useStore } from '@/store/store'
 
 function useFetchHexData(zillowData) {
-  const addToLoadingStack = useStore((state) => state.addToLoadingStack)
-  const removeFromLoadingStack = useStore((state) => state.removeFromLoadingStack)
+  const {addToLoadingStack, removeFromLoadingStack} = useStore()
+  
   const [hexData, setHexData] = useState({
     type: 'FeatureCollection',
     features: [],

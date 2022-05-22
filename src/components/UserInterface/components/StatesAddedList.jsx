@@ -4,7 +4,7 @@ import State from './State'
 import { stateKeyValues } from '@/exports/US_State_keys'
 
 export default function StatesAddedList() {
-  const stateChoices = useStore((state) => state.stateChoices)
+  const { stateChoices } = useStore()
 
   return (
     <>

@@ -508,6 +508,7 @@ input[type='range']::-ms-track {
   align-items: center;
   width: 100%;
   background-color: transparent;
+  margin-top: 0.5rem;
 }
 
 .filter-attribute {
@@ -516,6 +517,17 @@ input[type='range']::-ms-track {
   width: 100%;
   background-color: transparent;
   overflow: auto;
+}
+
+.filter-attribute-name {
+  margin-top: 0.5rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+  margin-top: 1rem;
 }
 
 form.min-to-max {
@@ -536,7 +548,7 @@ form.min-to-max {
   padding: 0.5rem;
   border: none;
   border-radius: 0.5rem;
-  max-width: 30%;
+  width: 30%;
 }
 
 .filter-input:focus-visible {

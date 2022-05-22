@@ -6,7 +6,6 @@ import UserInterface from './components/UserInterface/UserInterface'
 import Legend from './components/Legend/Legend'
 
 export default function App() {
-
   return (
     <>
       <Banner />

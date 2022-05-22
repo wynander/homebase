@@ -19,7 +19,7 @@ export function addPropertiesToCityJSON(cityData, zillowDataArray) {
       city.properties.houseAppreciation2yr = getHouseAppreciation(zillowDataArray[zillowIdx], 2)
       city.properties.houseAppreciation5yr = getHouseAppreciation(zillowDataArray[zillowIdx], 5)
       city.properties.currentTypicalHousePrice = parseFloat(
-        zillowDataArray[zillowIdx][zillowDataArray[zillowIdx].length - 1]
+        zillowDataArray[zillowIdx][zillowDataArray[0].length - 1]
       ).toLocaleString('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 })
     } else {
       undefinedCities.push(index)

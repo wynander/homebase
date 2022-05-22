@@ -2,8 +2,7 @@ import React from 'react'
 import { useStore } from '@/store/store'
 
 export default function State({ stateName, index, className }) {
-  const setStateChoices = useStore((state) => state.setStateChoices)
-  const stateChoices = useStore((state) => state.stateChoices)
+  const {stateChoices, setStateChoices} = useStore()
 
   const handleClick = () => {
     let temp = [...stateChoices]

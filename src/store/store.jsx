@@ -21,8 +21,8 @@ export const useStore = create((set) => ({
   setCoverage: (input) => set(() => ({ coverage: input })),
   setRadius: (input) => set(() => ({ radius: input })),
   setElevationScale: (input) => set(() => ({ elevationScale: input })),
-  'Typical House Price': [0, 0],
+  'Typical House Price': [-Infinity, Infinity],
   setTypicalHousePrice: (input) => set(() => ({ 'Typical House Price': input })),
-  'Appreciation Rate': [0, 0],
+  'Appreciation Rate': [-Infinity, Infinity],
   setAppreciationRate: (input) => set(() => ({ 'Appreciation Rate': input })),
 }))
