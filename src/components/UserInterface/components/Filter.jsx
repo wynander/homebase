@@ -1,7 +1,7 @@
 import React from 'react'
 import { useStore } from '@/store/store'
 
-export default function Filter({ dataToFilterName, min, max, step }) {
+export default function Filter({ dataToFilterName, min, max, step, title }) {
   const dataToFilter = useStore((state) => state[dataToFilterName])
   const setDataToFilter = useStore((state) => state['set' + dataToFilterName.split(' ').join('')])
 
@@ -17,7 +17,7 @@ export default function Filter({ dataToFilterName, min, max, step }) {
 
   return (
     <div className='filter-attribute'>
-      <div className='filter-attribute-name'>{dataToFilterName}</div>
+      <div className='filter-attribute-name'>{title}</div>
       <form className='min-to-max' autoComplete='off'>
         <input
           className='filter-input'

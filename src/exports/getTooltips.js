@@ -2,7 +2,7 @@ export function getTooltipHex({ object }) {
   return (
     object && {
       html: `\
-      <div>YoY return (previous 2 years): ${object.colorValue.toFixed(2)}%</div>
+      <div>YoY return (2 Year Average): ${object.colorValue.toFixed(2)}%</div>
       <div>Typical Home Price: ${object.elevationValue.toLocaleString('en-US', {
         style: 'currency',
         currency: 'USD',
@@ -29,12 +29,12 @@ export function getTooltipGeo({ object }) {
       ? 'Not Available from Zillow'
       : object.properties.currentTypicalHousePrice
   }</div>
-  <div>2 Year YoY Growth: ${
+  <div>2 Year Average YoY Growth: ${
     !isNaN(object.properties.houseAppreciation2yr)
       ? object.properties.houseAppreciation2yr + '%'
       : 'Not Available from Zillow'
   }</div>
-  <div>5 Year YoY Growth: ${
+  <div>5 Year Average YoY Growth: ${
     !isNaN(object.properties.houseAppreciation5yr)
       ? object.properties.houseAppreciation5yr + '%'
       : 'Not Available from Zillow'
