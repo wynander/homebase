@@ -6,8 +6,8 @@ export default function Overview() {
   return (
     <>
       <PropertiesSliders />
-      <FilterModule />
       <div className='spacer'></div>
+      <FilterModule />
     </>
   )
 }

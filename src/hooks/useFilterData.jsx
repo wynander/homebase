@@ -1,31 +1,28 @@
 import { useStore } from '@/store/store'
 import React, { useEffect } from 'react'
 
-export default function useFilterHexData(hexData) {
-  const [filteredHexData, setFilteredHexData] = React.useState(hexData)
+export default function useFilterData(data) {
+  const [filteredData, setFilteredData] = React.useState(data)
   const { 'Typical House Price': housePriceFilter, 'Appreciation Rate': appreciationRateFilter } =
     useStore()
 
   useEffect(() => {
-    if (hexData) {
-      setFilteredHexData(
-        hexData.features.filter((data) => {
+    if (data) {
+      setFilteredData(
+        data.features.filter((data) => {
           const housePrice = data.properties.currentTypicalHousePrice.replace(/[^0-9-.]/g, '')
           const appreciationRate = data.properties.houseAppreciation2yr
 
-          if (
+          return (
             +housePrice >= housePriceFilter[0] &&
             +housePrice <= housePriceFilter[1] &&
             +appreciationRate >= appreciationRateFilter[0] &&
             +appreciationRate <= appreciationRateFilter[1]
-          ) {
-            return true
-          }
-          return false
+          )
         })
       )
     }
-  }, [hexData, housePriceFilter, appreciationRateFilter])
+  }, [data, housePriceFilter, appreciationRateFilter])
 
-  return filteredHexData
+  return filteredData
 }

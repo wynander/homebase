@@ -1,10 +1,10 @@
 import React from 'react'
 import useLoadingStatus from '@/hooks/useLoadingStatus'
 import { useStore } from '@/store/store'
-import DetailedCitiesView from './components/DetailedCitiesView'
+import CityBoundariesView from './components/CityBoundariesView'
 import LayerOptions from './components/LayerOptions.jsx'
 import Loading from './components/Loading'
-import Overview from './components/Overview'
+import HexagonalView from './components/HexagonalView'
 
 export default function UserInterface({}) {
   const {layerChoice} = useStore()
@@ -12,10 +12,11 @@ export default function UserInterface({}) {
 
   return (
     <div className='ui-container'>
+      <div>Choose a view type:</div>
       <LayerOptions />
 
-      {layerChoice === 'stateview' && <DetailedCitiesView />}
-      {layerChoice === 'overview' && <Overview />}
+      {layerChoice === 'stateview' && <CityBoundariesView />}
+      {layerChoice === 'overview' && <HexagonalView />}
       <div className='loading'>
         <Loading className={isLoading ? 'on' : 'off'} />
       </div>

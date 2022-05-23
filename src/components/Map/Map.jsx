@@ -8,15 +8,17 @@ import useFetchZillowData from '@/hooks/useFetchZillowData'
 import { useStore } from '@/store/store'
 import Deck from './components/Deck'
 import { getColorValue, getElevationValue } from '@/exports/getAttributes'
-import useFilterHexData from '../../hooks/useFilterHexData'
+import useFilterData from '@/hooks/useFilterData'
 
 export default function Map({}) {
-  const {layerChoice, radius, elevationScale} = useStore()
+  const { layerChoice, radius, elevationScale } = useStore()
 
   const zillowData = useFetchZillowData()
   const hexData = useFetchHexData(zillowData)
-  const filteredHexData = useFilterHexData(hexData)
   const geoJsonData = useFetchGeoData(zillowData)
+
+  const filteredHexData = useFilterData(hexData)
+  const filteredGeoData = useFilterData(geoJsonData)
 
   const isVisible = layerChoice === 'overview' ? true : false
 
@@ -45,7 +47,7 @@ export default function Map({}) {
     }),
     new GeoJsonLayer({
       id: 'geojson',
-      data: geoJsonData,
+      data: filteredGeoData,
       opacity: 0.2,
       stroked: false,
       filled: true,
