@@ -30,7 +30,7 @@ export default function Filter({ dataToFilterName, min, max, step, title }) {
           onChange={(e) => handleChange(e, 0)}
           step={step}
         />
-        <div id='min-to-max-middle'>- to -</div>
+        <div id='min-to-max-middle'> to </div>
         <input
           className='filter-input'
           type='number'

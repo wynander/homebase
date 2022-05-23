@@ -32,7 +32,7 @@ export default function AddStateInput() {
   return (
     <>
       <div className='search-label'>
-        <div>Add States to View</div>
+        <div className='state-title'>Add States to View</div>
         <div className='info-icon'>
           <svg version='1.1' id='info-icon' viewBox='0 0 330 330'>
             <g>
