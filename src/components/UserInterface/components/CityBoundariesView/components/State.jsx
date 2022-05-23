@@ -1,14 +1,13 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useStore } from '@/store/store'
 
-export default function State({ stateName, index, className }) {
-  const {stateChoices, setStateChoices} = useStore()
+export default function State({ stateName, className, abbrev }) {
+  const { stateChoices, setStateChoices } = useStore()
 
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     let temp = [...stateChoices]
-    temp.splice(index, 1)
-    setStateChoices(temp)
-  }
+    setStateChoices(temp.filter((state) => state !== abbrev))
+  }, [stateChoices, setStateChoices, abbrev])
 
   return (
     <div className={className}>

@@ -17,7 +17,7 @@ export default function StatesAddedList() {
                 key={state}
                 className='state'
                 stateName={stateKeyValues[state.toUpperCase()]}
-                index={index}
+                abbrev={state}
               />
             )
           })
