@@ -1,6 +1,6 @@
 import React from 'react'
-import FilterModule from './FilterModule'
-import { PropertiesSliders } from './PropertiesSliders'
+import FilterModule from '@/components/UserInterface/components/FilterModule'
+import { PropertiesSliders } from './components/PropertiesSliders'
 
 export default function Overview() {
   return (

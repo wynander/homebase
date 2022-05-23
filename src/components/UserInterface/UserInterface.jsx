@@ -1,10 +1,10 @@
 import React from 'react'
 import useLoadingStatus from '@/hooks/useLoadingStatus'
 import { useStore } from '@/store/store'
-import CityBoundariesView from './components/CityBoundariesView'
+import CityBoundariesView from './components/CityBoundariesView/CityBoundariesView'
 import LayerOptions from './components/LayerOptions.jsx'
 import Loading from './components/Loading'
-import HexagonalView from './components/HexagonalView'
+import HexagonalView from './components/HexagonalView/HexagonalView'
 
 export default function UserInterface({}) {
   const {layerChoice} = useStore()
