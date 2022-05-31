@@ -3,7 +3,7 @@ import { fetchZillowData } from '@/api/fetchZillowData'
 import { convertCSVtoArray } from '@/data/convertCSVtoArray'
 import { useStore } from '@/store/store'
 
-function useFetchZillowData() {
+const useFetchZillowData = () => {
   const {addToLoadingStack, removeFromLoadingStack} = useStore()
 
   const [zillowData, setZillowData] = useState(null)

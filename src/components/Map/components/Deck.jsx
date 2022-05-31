@@ -16,8 +16,7 @@ const initialViewState = {
 }
 
 const MAP_STYLE = 'https://basemaps.cartocdn.com/gl/dark-matter-nolabels-gl-style/style.json'
-
-export default function Deck({ mapStyle = MAP_STYLE, layers }) {
+const Deck = ({ mapStyle = MAP_STYLE, layers }) => {
   const layerChoice = useStore((state) => state.layerChoice)
 
   return (
@@ -42,3 +41,5 @@ export default function Deck({ mapStyle = MAP_STYLE, layers }) {
     </DeckGL>
   )
 }
+
+export default Deck

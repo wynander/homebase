@@ -1,7 +1,7 @@
 import { FIPSCodes } from '@/exports/US_State_FIPS_Codes'
 import { getHouseAppreciation } from './getHouseAppreciation'
 
-export function addPropertiesToCityJSON(cityData, zillowDataArray) {
+export const addPropertiesToCityJSON = (cityData, zillowDataArray) => {
   //hash map of 'city names + state abbreviations': index  -> to avoid nested loops, instead using O(1) lookup
   let zillowHash = {}
   let undefinedCities = []

@@ -3,7 +3,7 @@ import { fetchCityPointData } from '@/api/fetchCityPointData'
 import { addPropertiesToCityJSON } from '@/data/addPropertiesToCityJSON'
 import { useStore } from '@/store/store'
 
-function useFetchHexData(zillowData) {
+const useFetchHexData = (zillowData) => {
   const {addToLoadingStack, removeFromLoadingStack} = useStore()
   
   const [hexData, setHexData] = useState({

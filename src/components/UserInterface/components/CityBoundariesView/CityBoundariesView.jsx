@@ -3,12 +3,12 @@ import AddStateInput from './components/AddStateInput'
 import FilterModule from '@/components/UserInterface/components/FilterModule'
 import StatesAddedList from './components/StatesAddedList'
 
-export default function DetailedCitiesView() {
-  return (
-    <>
-      <AddStateInput />
-      <StatesAddedList />
-      <FilterModule />
-    </>
-  )
-}
+const DetailedCitiesView = () => (
+  <>
+    <AddStateInput />
+    <StatesAddedList />
+    <FilterModule />
+  </>
+)
+
+export default DetailedCitiesView

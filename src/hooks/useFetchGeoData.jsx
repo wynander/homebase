@@ -3,7 +3,7 @@ import { fetchCityBoundaryData } from '@/api/fetchCityBoundaryData'
 import { addPropertiesToCityJSON } from '@/data/addPropertiesToCityJSON'
 import { useStore } from '@/store/store'
 
-function useFetchGeoData(zillowData) {
+const useFetchGeoData = (zillowData) => {
   const { addToLoadingStack, removeFromLoadingStack, stateChoices } = useStore()
   
   const [geoJsonData, setGeoJsonData] = useState({

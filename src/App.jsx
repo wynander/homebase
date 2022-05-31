@@ -5,13 +5,13 @@ import Map from './components/Map/Map'
 import UserInterface from './components/UserInterface/UserInterface'
 import Legend from './components/Legend/Legend'
 
-export default function App() {
-  return (
-    <>
-      <Banner />
-      <Legend />
-      <UserInterface />
-      <Map />
-    </>
-  )
-}
+const App = () => (
+  <>
+    <Banner />
+    <Legend />
+    <UserInterface />
+    <Map />
+  </>
+)
+
+export default App

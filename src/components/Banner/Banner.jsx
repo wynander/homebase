@@ -1,8 +1,7 @@
 import React from 'react'
 
 // add filtering fields to this banner for min and max values of housingAppreciation2yr
-export default function Banner({}) {
-  return (
+const Banner = () => (
     <div className='banner'>
       <div className='links'>
         <a className='nav-link' href='https://github.com/wynander/homebase' target='_blank'>
@@ -68,4 +67,5 @@ export default function Banner({}) {
       </svg>
     </div>
   )
-}
+  
+  export default Banner

@@ -1,8 +1,8 @@
 import React from 'react'
 import { useStore } from '@/store/store'
 
-export function PropertiesSliders() {
-  const {radius, setRadius, elevationScale, setElevationScale} = useStore()
+export const PropertiesSliders = () => {
+  const { radius, setRadius, elevationScale, setElevationScale } = useStore()
 
   const handleChange = (e, type) => {
     if (type === 'rad') {

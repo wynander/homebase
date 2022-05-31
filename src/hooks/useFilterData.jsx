@@ -1,7 +1,7 @@
 import { useStore } from '@/store/store'
 import React, { useEffect } from 'react'
 
-export default function useFilterData(data) {
+const useFilterData = (data) => {
   const [filteredData, setFilteredData] = React.useState(data)
   const { 'Typical House Price': housePriceFilter, 'Appreciation Rate': appreciationRateFilter } =
     useStore()
@@ -26,3 +26,5 @@ export default function useFilterData(data) {
 
   return filteredData
 }
+
+export default useFilterData

@@ -1,7 +1,6 @@
-export function getTooltipHex({ object }) {
-  return (
-    object && {
-      html: `\
+export const getTooltipHex = ({ object }) =>
+  object && {
+    html: `\
       <div>YoY return (2 Year Average): ${object.colorValue.toFixed(2)}%</div>
       <div>Typical Home Price: ${object.elevationValue.toLocaleString('en-US', {
         style: 'currency',
@@ -15,14 +14,11 @@ export function getTooltipHex({ object }) {
         })
         .join('')}    
       `,
-    }
-  )
-}
+  }
 
-export function getTooltipGeo({ object }) {
-  return (
-    object && {
-      html: `\
+export const getTooltipGeo = ({ object }) =>
+  object && {
+    html: `\
   <div><b>${object.properties.NAME}</b></div>
   <div>Typical Home Price: ${
     object.properties.currentTypicalHousePrice === '$NaN'
@@ -40,6 +36,4 @@ export function getTooltipGeo({ object }) {
       : 'Not Available from Zillow'
   }</div>
   `,
-    }
-  )
-}
+  }

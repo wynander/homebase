@@ -1,4 +1,4 @@
-export function convertCSVtoArray(data) {
+export const convertCSVtoArray = (data) => {
   const dataArray = []
   const rows = data.split('\n')
   rows.forEach((row) => {

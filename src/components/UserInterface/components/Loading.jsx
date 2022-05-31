@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Loading({className}) {
+const Loading = ({className}) => {
   return (
     <div className={'loading-container ' + className}>
       <div className='lds-ring'>
@@ -13,3 +13,5 @@ export default function Loading({className}) {
     </div>
   )
 }
+
+export default Loading

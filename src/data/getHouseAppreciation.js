@@ -1,4 +1,4 @@
-export function getHouseAppreciation(row, year) {
+export const getHouseAppreciation = (row, year) => {
   let yearIdx = row.length - 12 * year - 1
   if (row[yearIdx] === '') {
     let leftOffset = 1

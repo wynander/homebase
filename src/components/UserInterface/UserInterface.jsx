@@ -6,8 +6,8 @@ import LayerOptions from './components/LayerOptions.jsx'
 import Loading from './components/Loading'
 import HexagonalView from './components/HexagonalView/HexagonalView'
 
-export default function UserInterface({}) {
-  const {layerChoice} = useStore()
+const UserInterface = () => {
+  const { layerChoice } = useStore()
   const isLoading = useLoadingStatus()
 
   return (
@@ -23,3 +23,5 @@ export default function UserInterface({}) {
     </div>
   )
 }
+
+export default UserInterface

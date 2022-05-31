@@ -1,7 +1,7 @@
 import React from 'react'
 import { useStore } from '@/store/store'
 
-export default function LayerOption({ layer, layerName, children }) {
+const LayerOption = ({ layer, layerName, children }) => {
   const {layerChoice, setLayerChoice} = useStore()
 
   const handleClick = (view) => {
@@ -16,3 +16,5 @@ export default function LayerOption({ layer, layerName, children }) {
     </div>
   )
 }
+
+export default LayerOption

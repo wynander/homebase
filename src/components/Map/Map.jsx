@@ -10,7 +10,7 @@ import Deck from './components/Deck'
 import { getColorValue, getElevationValue } from '@/exports/getAttributes'
 import useFilterData from '@/hooks/useFilterData'
 
-export default function Map({}) {
+const Map=() =>{
   const { layerChoice, radius, elevationScale } = useStore()
 
   const zillowData = useFetchZillowData()
@@ -72,3 +72,5 @@ export default function Map({}) {
     </div>
   )
 }
+
+export default Map
